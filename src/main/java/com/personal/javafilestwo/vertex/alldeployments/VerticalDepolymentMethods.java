@@ -10,7 +10,7 @@ public class VerticalDepolymentMethods extends AbstractVerticle {
     public static void main(String[] args) {
         var vertx = Vertx.vertx();
         //simple way
-       // vertx.deployVerticle(new VerticalExp());
+        // vertx.deployVerticle(new VerticalExp());
 //        JSONObject obj=new JSONObject();
 //        obj.put("1","hey");
 //      //  vertx.deployVerticle(new VerticalExp(),new DeploymentOptions().setConfig(JsonObject.mapFrom(obj)));
@@ -28,9 +28,9 @@ public class VerticalDepolymentMethods extends AbstractVerticle {
 
     @Override
     public void start(Promise<Void> startPromise) throws Exception {
-        LOG.debug("Main vertical started : {}",getClass().getName());
+        LOG.debug("Main vertical started : {}", getClass().getName());
         // Deploy a verticle and don't wait for it to start
-    //    vertx.deployVerticle(new VerticalExp());
+        //    vertx.deployVerticle(new VerticalExp());
         // Deploy a verticle and wait for it start
 //        vertx.deployVerticle(new VerticalExp(), res -> {
 //            if (res.succeeded()) {
@@ -58,25 +58,26 @@ public class VerticalDepolymentMethods extends AbstractVerticle {
 //        vertx.deployVerticle(new VerticalExp(), new DeploymentOptions().setConfig(config));
 
         // Deploy 10 instances
-      //  vertx.deployVerticle(new VerticalExp(), new DeploymentOptions().setInstances(10));
+        //  vertx.deployVerticle(new VerticalExp(), new DeploymentOptions().setInstances(10));
 
         // Deploy it as a worker verticle
-    //    vertx.deployVerticle(new VerticalExp(), new DeploymentOptions().setWorker(true));
+        //    vertx.deployVerticle(new VerticalExp(), new DeploymentOptions().setWorker(true));
 
 
     }
 
-    static class VerticalExp extends AbstractVerticle{
+    static class VerticalExp extends AbstractVerticle {
         private static final Logger LOG = LoggerFactory.getLogger(VerticalExp.class);
+
         @Override
         public void start(Promise<Void> startPromise) throws Exception {
-         var obj = config();
-         LOG.debug("Start : {}","Verticle is started");
-         LOG.debug("config : {}",config());
-         startPromise.complete();
+            var obj = config();
+            LOG.debug("Start : {}", "Verticle is started");
+            LOG.debug("config : {}", config());
+            startPromise.complete();
         }
 
-    //    @Override
+        //    @Override
 //        public void stop(Promise<Void> stopPromise) throws Exception {
 //            LOG.debug("Stop : {}","Verticle stopped");
 //            stop();

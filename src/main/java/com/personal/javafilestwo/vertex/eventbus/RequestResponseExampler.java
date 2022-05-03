@@ -14,22 +14,25 @@ public class RequestResponseExampler {
         vertex.deployVerticle(new ResponseVerticle());
     }
 
-static class RequestVerticle extends AbstractVerticle{
+    static class RequestVerticle extends AbstractVerticle {
         private static final Logger LOG = LoggerFactory.getLogger(RequestResponseExampler.class);
-    private static final String ADDRESS = "my.request.address";
-    @Override
-    public void start(Promise<Void> startPromise) throws Exception {
+        private static final String ADDRESS = "my.request.address";
 
-        var eventBus =vertx.eventBus();
+        @Override
+        public void start(Promise<Void> startPromise) throws Exception {
 
-          final String message = "Hey buddy";
-        //  LOG.debug("sending message : {} ", message);
-          eventBus.<String>request(ADDRESS, message, reply -> {
-              LOG.debug("Response : {}", reply.result().body());
-          });
-        startPromise.complete();
+            var eventBus = vertx.eventBus();
+
+            final String message = "Hey buddy";
+            //  LOG.debug("sending message : {} ", message);
+            eventBus.<String>request(ADDRESS, message, reply -> {
+
+                LOG.debug("Response : {}", reply.result().body());
+
+            });
+            startPromise.complete();
+        }
     }
-}
 
     static class ResponseVerticle extends AbstractVerticle {
         private static final Logger LOG = LoggerFactory.getLogger(ResponseVerticle.class);
@@ -37,12 +40,13 @@ static class RequestVerticle extends AbstractVerticle{
         @Override
         public void start(Promise<Void> startPromise) throws Exception {
 
-            vertx.eventBus().consumer(RequestVerticle.ADDRESS,message->{
-               LOG.debug("Received Message: {}",message.body());
-               message.reply("Received your message. Thanks!");
+            vertx.eventBus().consumer(RequestVerticle.ADDRESS, message -> {
+                LOG.debug("Received Message: {}", message.body());
+                message.reply("Received your message. Thanks!");
             });
 
-        startPromise.complete();}
+            startPromise.complete();
+        }
 
     }
 }
